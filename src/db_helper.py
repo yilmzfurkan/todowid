@@ -48,3 +48,14 @@ class SqliteHelper:
             self.connection.commit()
         except Error as e:
             print(e)
+
+    def list_todos(self):
+        rows = None
+        select_data_query = "SELECT * FROM todo"
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(select_data_query)
+            rows = cursor.fetchall()
+        except Error as e:
+            print(e)
+        return rows

@@ -7,6 +7,8 @@ if __name__ == '__main__':
     SQLITE_HELPER = SqliteHelper(DATABASE_PATH)
 
 if len(sys.argv) == 1:
+    for temp in SQLITE_HELPER.list_todos():
+        print(*temp)
     print("list")
 else:
     if sys.argv[1] == "--add":
