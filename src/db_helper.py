@@ -1,48 +1,50 @@
 import sqlite3
 from sqlite3 import Error
 
-CREATE_TABLE_SQL_COMMAND = "CREATE TABLE IF NOT EXISTS todo(" \
-                           "todo_id INTEGER PRIMARY KEY AUTOINCREMENT, " \
-                           "todo_title TEXT NOT NULL, " \
-                           "todo_date TEXT)"
-
-INSERT_DATA_SQL_COMMAND = "INSERT INTO todo (todo_title, todo_date) VALUES (?, ?)"
-
-DELETE_DATA_SQL_COMMAND = "DELETE  FROM todo WHERE todo_id = ?"
+__author__ = "Orhan Tugrul && Furkan Yılmaz"
+__version__ = "1.0.0"
 
 
-def connect_db(db_path):
-    try:
-        conn = sqlite3.connect(db_path)
-        return conn
-    except Error as e:
-        print(e)
+class SqliteHelper:
+    def __init__(self, db_path):
+        self.connection = sqlite3.connect(db_path)
 
+    def create_table(self):
+        cursor = None
+        create_table_query = "CREATE TABLE IF NOT EXISTS todo(" \
+                             "todo_id INTEGER PRIMARY KEY NOT NULL , " \
+                             "todo_title TEXT NOT NULL, " \
+                             "todo_date TEXT)"
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(create_table_query)
+        except Error as e:
+            print(e)
 
-def create_table(conn):
-    try:
-        c = conn.cursor()
-        c.execute(CREATE_TABLE_SQL_COMMAND)
-    except Error as e:
-        print(e)
+    def insert_data(self, args):
+        cursor = None
+        insert_data_query = "INSERT INTO todo (todo_title, todo_date) VALUES (?, ?)"
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(insert_data_query, args)
+            self.connection.commit()
+        except Error as e:
+            print(e)
+        finally:
+            try:
+                if cursor:
+                    cursor.close()
 
+                if self.connection:
+                    self.connection.close()
+            except Error as e:
+                print(e)
 
-def insert_data(conn, args):
-    try:
-        c = conn.cursor()
-        c.execute(INSERT_DATA_SQL_COMMAND, args)
-        conn.commit()
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
-
-
-def delete_data(conn, args):
-    try:
-        c = conn.cursor()
-        c.execute(DELETE_DATA_SQL_COMMAND, args)
-        conn.commit()
-    except Error as e:
-        print(e)
+    def delete_data(self, args):
+        delete_data_query = "DELETE  FROM todo WHERE todo_id = ?"
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute(delete_data_query, args)
+            self.connection.commit()
+        except Error as e:
+            print(e)
