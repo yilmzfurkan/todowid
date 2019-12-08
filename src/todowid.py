@@ -12,6 +12,9 @@ else:
         dbh.create_table(conn)
         dbh.insert_data(conn, args)
     elif sys.argv[1] == "--remove":
+        conn = dbh.connect_db('todo.db')
+        remove_id = sys.argv[2]
+        dbh.delete_data(conn, remove_id)
         print("remove")
     elif sys.argv[1] == "--edit":
         print("edit")
