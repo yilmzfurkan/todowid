@@ -38,7 +38,7 @@ class SqliteHelper:
                 print(e)
 
     def delete_data(self, args):
-        delete_data_query = "DELETE  FROM todo WHERE todo_id = ?"
+        delete_data_query = "DELETE FROM todo WHERE todo_id = (?)"
         try:
             if len(self.fetch_data(args)) == 0:
                 raise TodoNotFoundException("We've searched enough for you, but we haven't found any data like this :(")

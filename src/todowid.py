@@ -3,7 +3,7 @@ from db_helper import SqliteHelper
 from datetime import datetime
 
 if __name__ == '__main__':
-    DATABASE_PATH = 'todo.db'
+    DATABASE_PATH = '../todo.db'
     SQLITE_HELPER = SqliteHelper(DATABASE_PATH)
 
 if len(sys.argv) == 1:
