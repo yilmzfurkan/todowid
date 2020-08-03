@@ -1,4 +1,6 @@
+# Junk
 venv/
 .idea/
-src/__pycache__
+
+# Database
 todo.db
