@@ -1,6 +1,9 @@
+# Byte-compiled
+__pycache__/
+
 # Junk
-venv/
 .idea/
+venv/
 
 # Database
 todo.db
