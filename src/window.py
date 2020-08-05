@@ -29,7 +29,10 @@ def init_footer():
         ('key', "Q"), " exit",
     ]
 
-    return urwid.AttrMap(urwid.Text(footer_text), 'foot')
+    return urwid.Padding(urwid.AttrMap(urwid.Text(footer_text), 'foot'),
+                         left=1,
+                         right=1)
+
 
 
 def init_window():
@@ -44,9 +47,14 @@ def init_window():
         ('error', 'dark red', 'light gray'),
     ]
 
-    frame = urwid.Frame(init_body(
-        [urwid.Text("First"), urwid.Text("Second")]
-    ), header=init_header(), footer=init_footer())
+    frame = urwid.Frame(
+        init_body(
+            [
+                urwid.Text("First"),
+                urwid.Text("Second")
+            ]
+        ),
+        header=init_header(), footer=init_footer())
 
     main = urwid.MainLoop(
         urwid.AttrMap(frame, 'body'),
