@@ -34,7 +34,6 @@ def init_footer():
                          right=1)
 
 
-
 def init_window():
     color_palette = [
         ('body', 'light gray', 'black'),
