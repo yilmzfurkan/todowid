@@ -1,5 +1,8 @@
 import urwid
+import datetime
 from src.util.key import on_key_press
+from src.ui.layout.Header import Header
+from src.ui.layout.Footer import Footer
 
 
 # Created by orhantgrl
@@ -7,7 +10,11 @@ from src.util.key import on_key_press
 
 
 def init_header():
-    return urwid.Text(('head', "Todowid | Todo List"), align=urwid.CENTER)
+    date = datetime.datetime.now().strftime('%A %d %B')
+    return Header(
+        title='Todowid',
+        subtitle=date,
+    ).__draw__()
 
 
 def init_body(content):
@@ -18,36 +25,45 @@ def init_body(content):
         left=1,
         right=1,
     )
-    return urwid.LineBox(body_padding)
+    return body_padding
 
 
 def init_footer():
+    """
     footer_text = [
         ('key', "UP"), ", ", ('key', "DOWN"), ", ",
         ('key', "PAGE UP"), " and ", ('key', "PAGE DOWN"),
         " move view | ",
         ('key', "Q"), " exit",
     ]
+    """
 
-    return urwid.Padding(urwid.AttrMap(urwid.Text(footer_text), 'foot'),
-                         left=1,
-                         right=1)
+    hint = [
+        ('key', 'Help '), 'H', ' | ',
+        ('key', 'Exit '), 'Q'
+    ]
+
+    version = [
+        ('key', 'Version '), 'v0.0.1'
+    ]
+
+    return Footer(hint, version).__draw__()
 
 
 def init_window():
     color_palette = [
         ('body', 'light gray', 'black'),
         ('focus', 'light gray', 'dark blue', 'standout'),
-        ('head', 'light cyan', 'black', 'standout'),
-        ('foot', 'light gray', 'black'),
-        ('key', 'light cyan', 'black', 'underline'),
+        ('head', '', '', '', '#FF5722', ''),
+        ('foot', '', '', '', 'light gray', '#3D537F'),
+        ('key', '', '', '', '#FF5722', '#3D537F'),
         ('title', 'white', 'black', 'bold'),
         ('flag', 'dark gray', 'light gray'),
         ('error', 'dark red', 'light gray'),
     ]
 
     frame = urwid.Frame(
-        init_body(
+        body=init_body(
             [
                 urwid.Text("First"),
                 urwid.Text("Second")
@@ -61,5 +77,5 @@ def init_window():
         unhandled_input=on_key_press,
         handle_mouse=False
     )
-
+    main.screen.set_terminal_properties(colors=256)
     main.run()
