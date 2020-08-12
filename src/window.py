@@ -2,7 +2,9 @@ import urwid
 import datetime
 from src.util.key import on_key_press
 from src.ui.layout.Header import Header
+from src.ui.layout.Body import Body, Content
 from src.ui.layout.Footer import Footer
+from src.model.Todo import Todo
 
 
 # Created by orhantgrl
@@ -17,15 +19,15 @@ def init_header():
     ).__draw__()
 
 
-def init_body(content):
-    body_walker = urwid.SimpleListWalker(content)
-    body_list = urwid.ListBox(body_walker)
-    body_padding = urwid.Padding(
-        body_list,
-        left=1,
-        right=1,
-    )
-    return body_padding
+def init_body():
+    # Dummy Data
+    contents = [
+        Content(Todo(123, "First TODO", "2020-08-08")).draw_content_layout(),
+        Content(Todo(456, "Second TODO", "2020-08-08")).draw_content_layout(),
+        Content(Todo(789, "Third TODO", "2020-08-08")).draw_content_layout(),
+    ]
+
+    return Body(contents=contents).__draw__()
 
 
 def init_footer():
@@ -52,27 +54,24 @@ def init_footer():
 
 def init_window():
     color_palette = [
-        ('body', 'light gray', 'black'),
+        ('frame', '', '', '', '#121212', '#121212'),
         ('focus', 'light gray', 'dark blue', 'standout'),
-        ('head', '', '', '', '#FF5722', ''),
+        ('body', '', '', '', 'light gray', '#121212'),
         ('foot', '', '', '', 'light gray', '#3D537F'),
         ('key', '', '', '', '#FF5722', '#3D537F'),
-        ('title', 'white', 'black', 'bold'),
+        ('title', '', '', '', '#FF5722', '#121212'),
+        ('sub_title', '', '', '', 'white', '#121212'),
         ('flag', 'dark gray', 'light gray'),
         ('error', 'dark red', 'light gray'),
     ]
 
     frame = urwid.Frame(
-        body=init_body(
-            [
-                urwid.Text("First"),
-                urwid.Text("Second")
-            ]
-        ),
-        header=init_header(), footer=init_footer())
+        header=init_header(),
+        body=init_body(),
+        footer=init_footer())
 
     main = urwid.MainLoop(
-        urwid.AttrMap(frame, 'body'),
+        urwid.AttrMap(frame, 'frame'),
         color_palette,
         unhandled_input=on_key_press,
         handle_mouse=False
