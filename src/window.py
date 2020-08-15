@@ -41,8 +41,8 @@ def init_footer():
     """
 
     hint = [
-        ('key', 'Help '), 'H', ' | ',
-        ('key', 'Exit '), 'Q'
+        ('key', 'Help '), 'F1', ' | ',
+        ('key', 'Exit '), 'ESC'
     ]
 
     version = [
