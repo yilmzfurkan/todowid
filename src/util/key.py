@@ -5,9 +5,9 @@ import urwid
 # created on 8/4/20
 
 def on_key_press(key):
-    if key in 'esc':
+    if key == 'esc':
         raise urwid.ExitMainLoop()
-    elif key in 'f1':
+    elif key == 'f1':
         pass
-    elif key in 'f11':
+    elif key == 'f11':
         pass
