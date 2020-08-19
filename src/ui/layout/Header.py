@@ -20,8 +20,8 @@ class Header(Layout):
         date = urwid.Text(self.subtitle, align=urwid.CENTER)
 
         columns = urwid.Pile([
-            urwid.AttrMap(urwid.Padding(w=title, align=urwid.CENTER, width=urwid.CLIP), 'head'),
-            urwid.Padding(date),
+            urwid.AttrMap(urwid.Padding(w=title, align=urwid.CENTER, width=urwid.CLIP), 'title'),
+            urwid.AttrMap(urwid.Padding(date), 'sub_title'),
         ])
 
         filler = urwid.Filler(body=columns, top=4, bottom=2)

@@ -22,7 +22,7 @@ class Body(Layout):
             left=1,
             right=1,
         )
-        return body_padding
+        return urwid.AttrMap(body_padding, attr_map='body')
 
 
 class Content:
