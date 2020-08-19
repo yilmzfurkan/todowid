@@ -5,6 +5,7 @@ from src.ui.layout.Header import Header
 from src.ui.layout.Body import Body, Content
 from src.ui.layout.Footer import Footer
 from src.model.Todo import Todo
+from src.ui.color.Palette import Palette, Schema
 
 
 # Created by orhantgrl
@@ -53,22 +54,12 @@ def init_footer():
 
 
 def init_window():
-    color_palette = [
-        ('frame', '', '', '', '#121212', '#121212'),
-        ('focus', 'light gray', 'dark blue', 'standout'),
-        ('body', '', '', '', 'light gray', '#121212'),
-        ('foot', '', '', '', 'light gray', '#3D537F'),
-        ('key', '', '', '', '#FF5722', '#3D537F'),
-        ('title', '', '', '', '#FF5722', '#121212'),
-        ('sub_title', '', '', '', 'white', '#121212'),
-        ('flag', 'dark gray', 'light gray'),
-        ('error', 'dark red', 'light gray'),
-    ]
-
     frame = urwid.Frame(
         header=init_header(),
         body=init_body(),
         footer=init_footer())
+
+    color_palette = Palette(Schema.DARK).__getpalette__()
 
     main = urwid.MainLoop(
         urwid.AttrMap(frame, 'frame'),
