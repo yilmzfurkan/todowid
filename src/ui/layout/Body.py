@@ -1,6 +1,7 @@
 import urwid
 from src.ui.layout.Layout import Layout
 from src.model.Todo import Todo
+from src.ui.widget.SmoothLineBox import SmoothLineBox
 
 
 # Created by orhantgrl
@@ -54,4 +55,4 @@ class Content:
             ]
         )
 
-        return urwid.LineBox(parent)
+        return SmoothLineBox(parent)
