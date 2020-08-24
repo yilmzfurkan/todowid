@@ -9,5 +9,3 @@ def on_key_press(key):
         raise urwid.ExitMainLoop()
     elif key == 'f1':
         pass
-    elif key == 'f11':
-        pass

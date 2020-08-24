@@ -1,4 +1,7 @@
+import datetime
+
 import urwid
+
 from src.ui.layout.Layout import Layout
 
 
@@ -6,23 +9,25 @@ from src.ui.layout.Layout import Layout
 # created on 8/6/20
 
 class Header(Layout):
-    def __init__(self, title, subtitle):
+    __date = datetime.datetime.now().strftime('%A %d %B')
+
+    def __init__(self, title):
         """
         :type title str
-        :type subtitle str
+        :type date str
         """
         super().__init__()
         self.title = title
-        self.subtitle = subtitle
 
     def __draw__(self):
-        title = urwid.BigText(self.title, urwid.HalfBlock5x4Font())
-        date = urwid.Text(self.subtitle, align=urwid.CENTER)
+        title = urwid.Text(self.title)
+        date = urwid.Text(self.__date, align=urwid.RIGHT)
 
-        columns = urwid.Pile([
-            urwid.AttrMap(urwid.Padding(w=title, align=urwid.CENTER, width=urwid.CLIP), 'title'),
-            urwid.AttrMap(urwid.Padding(date), 'sub_title'),
+        columns = urwid.Columns([
+            urwid.AttrMap(urwid.Padding(w=title, align=urwid.LEFT), 'app_name'),
+            urwid.AttrMap(urwid.Padding(date), 'date'),
         ])
 
-        filler = urwid.Filler(body=columns, top=4, bottom=2)
-        return urwid.Padding(w=urwid.BoxAdapter(box_widget=filler, height=8), left=1, right=1)
+        padding = urwid.Padding(w=columns, left=1, right=1)
+        filler = urwid.Filler(body=padding, top=2)
+        return urwid.BoxAdapter(box_widget=filler, height=2)
