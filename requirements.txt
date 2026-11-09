@@ -1,2 +1,2 @@
-urwid==2.1.1
+urwid==4.0.7
 peewee==3.13.3
